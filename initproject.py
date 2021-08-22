@@ -1,19 +1,19 @@
-#!usr/bin/python
+#!/usr/bin/python3
 
 import os
 import sys
 import time
 from selenium import webdriver
 
-default_path = "/Users/rico/code/"
-github_username = "rklimpel"
+default_path = "/asdf/asdf/asdf"
+github_username = "asdf"
+github_password = "asdf"
 project_name = str(sys.argv[1])
-github_pw = str(sys.argv[2])
 
 print("Create new project '" + project_name + "' at '" + default_path + "'.")
 
 def create_remote_repository():
-    browser = webdriver.Chrome("/usr/local/bin/chromedriver")
+    browser = webdriver.Chrome("./chromedriver")
 
     #Github Login
     print("Login to github.com...")
@@ -34,7 +34,7 @@ def create_remote_repository():
     toggle_private.click()
     toggle_readme = browser.find_elements_by_xpath("//*[@id='repository_auto_init']")[0]
     toggle_readme.click()
-    btn_create_repo = browser.find_element_by_css_selector("button.first-in-line")
+    btn_create_repo = browser.find_element_by_xpath("//button[contains(text(),'Create repository')]")
     btn_create_repo.submit()
 
     browser.quit()
@@ -42,7 +42,7 @@ def create_remote_repository():
 def clone_repo():
     print("Cloning repo to local machine...")
     os.chdir(default_path)
-    os.system("git clone https://github.com/" + github_username + "/" + project_name)
+    os.system("git clone git@github.com:" + github_username + "/" + project_name + ".git")
 
 if __name__ == "__main__":
     create_remote_repository()
